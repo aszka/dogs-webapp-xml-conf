@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="description" content=""/>
+	<meta name="author" content="aszka"/>
+	<title>Dogs database</title>
+
+	<link href="static/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/static/css/bootstrap.min.css}"/>
+	<link href="static/css/core.css" rel="stylesheet" media="screen" th:href="@{/static/css/core.css}" />
+
+	<script src="static/js/jquery-3.3.1.min.js" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+	<script src="static/js/main.js" th:src="@{/static/js/main.js}"></script>
+</head>
+
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+	<div class="content">
+		<h2>List of dogs</h2>
+		<a th:href="@{/dogs/add}" class="btn btn-large btn-success" role="button">Add a new dog</a>
+
+		<div th:unless="${#strings.isEmpty(info)}" class="alert alert-info">
+			<strong>Info!</strong> <span th:text="${info}"></span>
+		</div>
+
+		<p th:if="${#lists.isEmpty(dogs)}" class="no-tab-msg"><strong>There is no dog in the database yet</strong></p>
+		<table id="dog-list" th:unless="${#lists.isEmpty(dogs)}" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Dog's name</th>
+					<th>Birth date</th>
+					<th>Owner's name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dog : ${dogs}" th:id="${dog.id}">
+					<td th:text="${dog.id}"></td>
+					<td th:text="${dog.name}"></td>
+					<td th:text="${dog.birthDate}"></td>
+					<td th:text="${dog.ownerName}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+</div>
+</body>
+</html>
